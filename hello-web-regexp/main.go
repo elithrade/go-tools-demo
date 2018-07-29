@@ -23,10 +23,10 @@ func handler(w http.ResponseWriter, req *http.Request) {
 	re := regexp.MustCompile("^(.+)@gmail.com$")
 	// Path of the request
 	path := req.URL.Path
-	match := re.FindAllStringSubmatch(path, -1)
+	match := re.FindAllStringSubmatch(path[1:], -1)
 	if match != nil {
 		// We have a match
-		_, err := fmt.Fprintf(w, "Hello, gmail user %s\n", match[1])
+		_, err := fmt.Fprintf(w, "Hello, gmail user %s\n", match[0][1])
 		if err != nil {
 			log.Fatal(err)
 		}
