@@ -32,7 +32,7 @@ func handler(w http.ResponseWriter, req *http.Request) {
 		}
 		return
 	}
-	_, err := fmt.Fprintf(w, "Hello web")
+	_, err := fmt.Fprintf(w, "Hello %s\n", path)
 	if err != nil {
 		log.Fatal(err)
 	}
