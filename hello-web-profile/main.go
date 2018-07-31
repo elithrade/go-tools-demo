@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 	_ "net/http/pprof"
-	"regexp"
+	"strings"
 )
 
 func main() {
@@ -19,16 +19,12 @@ func main() {
 	}
 }
 
-// regex used to match string starts with anything ends with gmail.com
-var re = regexp.MustCompile("^(.+)@gmail.com$")
-
 func handler(w http.ResponseWriter, req *http.Request) {
 	// Path of the request
 	path := req.URL.Path
-	match := re.FindAllStringSubmatch(path[1:], -1)
-	if match != nil {
-		// We have a match
-		_, err := fmt.Fprintf(w, "Hello, gmail user %s\n", match[0][1])
+	if strings.HasSuffix(path, "@gmail.com") {
+		name := strings.TrimSuffix(path, "@gmail.com")
+		_, err := fmt.Fprintf(w, "Hello, gmail user %s\n", name[1:])
 		if err != nil {
 			log.Fatal(err)
 		}
