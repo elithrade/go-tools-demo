@@ -19,9 +19,10 @@ func main() {
 	}
 }
 
+// regex used to match string starts with anything ends with gmail.com
+var re = regexp.MustCompile("^(.+)@gmail.com$")
+
 func handler(w http.ResponseWriter, req *http.Request) {
-	// regex used to match string starts with anything ends with gmail.com
-	re := regexp.MustCompile("^(.+)@gmail.com$")
 	// Path of the request
 	path := req.URL.Path
 	match := re.FindAllStringSubmatch(path[1:], -1)
